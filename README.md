@@ -2,6 +2,8 @@
 
 A small, static website that collects **verified, source-linked** information about AI governance: organisations, research, policy developments and upcoming events. Built as a portfolio project and for an application to the GovAI UK Summer Fellowship 2027 (Applied Track).
 
+🌐 **Live Demo:** https://divyacodehub.github.io/ai-governance-resource-hub/
+
 ## Features
 - **Dashboard**: totals (organisations, research resources, policy updates, upcoming events), a *Recently added* list driven by the `dateAdded` field, a verification summary, and the GovAI fellowship opportunity.
 - **Organisations**: cards with description, main area and official link; search and area filter.
