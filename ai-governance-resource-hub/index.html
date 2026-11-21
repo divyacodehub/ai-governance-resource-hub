@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AI Governance Resource Hub</title>
+  <meta name="description" content="A verified, source-linked directory of AI governance organisations, research, policy developments and events.">
+  <script>
+    /* Set the theme before the page paints, so it does not flash. */
+    (function () {
+      var theme = "light";
+      try {
+        var saved = localStorage.getItem("aigrh.theme");
+        if (saved === "dark" || saved === "light") theme = saved;
+        else if (window.matchMedia && matchMedia("(prefers-color-scheme: dark)").matches) theme = "dark";
+      } catch (e) {}
+      document.documentElement.setAttribute("data-theme", theme);
+    })();
+  </script>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="topbar">
+    <button type="button" id="menu-toggle" class="menu-toggle" aria-label="Open navigation" aria-expanded="false" aria-controls="sidebar">&#9776;</button>
+    <span class="topbar-title">AI Governance Resource Hub</span>
+    <button type="button" class="theme-toggle" data-theme-toggle aria-label="Switch to dark mode"></button>
+  </header>
+
+  <div class="layout">
+    <aside class="sidebar" id="sidebar">
+      <div class="brand">
+        <span class="brand-mark" aria-hidden="true">AG</span>
+        <div>
+          <strong>AI Governance</strong>
+          <span>Resource Hub</span>
+        </div>
+      </div>
+      <form class="global-search" id="global-search-form" role="search">
+        <label class="sr-only" for="global-search">Search everything</label>
+        <input type="search" id="global-search" placeholder="Search everything">
+        <button type="submit" aria-label="Search">&#128269;</button>
+      </form>
+      <nav aria-label="Main navigation">
+        <a href="#dashboard" class="nav-link" data-view="dashboard">Dashboard</a>
+        <a href="#organisations" class="nav-link" data-view="organisations">Organisations</a>
+        <a href="#research" class="nav-link" data-view="research">Research Library</a>
+        <a href="#policy" class="nav-link" data-view="policy">Policy Updates</a>
+        <a href="#events" class="nav-link" data-view="events">Events</a>
+        <a href="#bookmarks" class="nav-link" data-view="bookmarks">Bookmarks <span class="count-pill" id="bookmark-count">0</span></a>
+        <a href="#about" class="nav-link" data-view="about">About &amp; Verification</a>
+      </nav>
+      <button type="button" class="theme-toggle" data-theme-toggle aria-label="Switch to dark mode"></button>
+      <p class="sidebar-foot">Every entry links to its original source. Data checked 19 November 2026.</p>
+    </aside>
+    <div class="scrim" id="scrim"></div>
+
+    <main id="main" class="main" tabindex="-1">
+
+      <!-- DASHBOARD -->
+      <section class="view" id="view-dashboard" aria-labelledby="h-dashboard">
+        <div class="hero">
+          <svg class="hero-art" viewBox="0 0 400 300" aria-hidden="true" focusable="false">
+            <line x1="60" y1="60" x2="170" y2="110"/><line x1="170" y1="110" x2="290" y2="50"/>
+            <line x1="170" y1="110" x2="210" y2="200"/><line x1="210" y1="200" x2="330" y2="180"/>
+            <line x1="290" y1="50" x2="350" y2="120"/><line x1="350" y1="120" x2="330" y2="180"/>
+            <line x1="210" y1="200" x2="110" y2="250"/><line x1="60" y1="60" x2="40" y2="170"/>
+            <circle cx="60" cy="60" r="6"/><circle cx="170" cy="110" r="9"/><circle cx="290" cy="50" r="6"/>
+            <circle cx="210" cy="200" r="8"/><circle cx="330" cy="180" r="6"/><circle cx="350" cy="120" r="5"/>
+            <circle cx="110" cy="250" r="5"/><circle cx="40" cy="170" r="5"/>
+          </svg>
+          <h1 id="h-dashboard">AI governance, with the sources shown</h1>
+          <p>Organisations, research, policy developments and events. Every entry links to its original source and says how well it was checked.</p>
+          <form class="hero-search" id="hero-search-form" role="search">
+            <label class="sr-only" for="hero-search">Search everything</label>
+            <input type="search" id="hero-search" placeholder="Try: compute, EU, NIST, safety">
+            <button type="submit">Search</button>
+          </form>
+          <div class="chips" id="topic-chips"></div>
+        </div>
+        <div class="stats" id="stats"></div>
+
+        <section class="constellation panel" id="constellation" aria-labelledby="h-constellation">
+          <div class="c-head">
+            <div>
+              <h2 id="h-constellation">The map: every entry as a dot</h2>
+              <p class="small">Each dot is one real entry. Hover, tab or click a dot. The ring shows how well it was verified.</p>
+            </div>
+            <p class="small" id="c-count" aria-live="polite"></p>
+          </div>
+          <div class="c-filters">
+            <div class="chips-row"><span class="small">Type</span><span id="c-type-chips" class="chips-inline"></span></div>
+            <div class="chips-row"><span class="small">Verification</span><span id="c-level-chips" class="chips-inline"></span></div>
+          </div>
+          <div class="c-body">
+            <div class="c-map">
+              <svg id="constellation-svg" viewBox="0 0 800 470" role="group" aria-label="Map of all entries, grouped by type"></svg>
+              <div class="c-tooltip" id="c-tooltip" hidden></div>
+            </div>
+            <div class="c-panel" id="c-panel" aria-live="polite"></div>
+          </div>
+        </section>
+
+        <div class="grid-2">
+          <div class="panel">
+            <h2>Recently added</h2>
+            <p class="small">Sorted by the <code>dateAdded</code> field: the date an entry was added to <em>this website</em>, not when it was published or happened.</p>
+            <ul class="recent-list" id="recent-list"></ul>
+          </div>
+          <div class="panel">
+            <h2>Verification status</h2>
+            <p class="small">How each entry was checked. Details are on every entry and in the About page.</p>
+            <div id="verification-summary"></div>
+          </div>
+        </div>
+
+        <div class="panel panel-highlight" id="opportunity"></div>
+
+        <div class="panel" id="project-about">
+          <h2>About this project</h2>
+          <p>The AI Governance Resource Hub is a portfolio project built with plain HTML, CSS and JavaScript. It gathers AI governance organisations, research, policy developments and events. Every entry links to its original source and carries a visible verification label, so you can see what was checked and what is still uncertain.</p>
+          <p class="small" id="project-author"></p>
+        </div>
+      </section>
+
+      <!-- ORGANISATIONS -->
+      <section class="view" id="view-organisations" aria-labelledby="h-organisations" hidden>
+        <div class="page-head">
+          <h1 id="h-organisations">Organisations</h1>
+          <p>Research institutes, government bodies and non-profits working on AI governance and safety.</p>
+        </div>
+        <div class="toolbar">
+          <label class="field"><span>Search</span><input type="search" id="org-search" placeholder="Search name or description"></label>
+          <label class="field"><span>Main area</span><select id="org-category"></select></label>
+          <button type="button" class="btn-ghost" data-reset="organisations">Reset</button>
+        </div>
+        <p class="result-count" id="org-count" aria-live="polite"></p>
+        <div class="cards" id="org-list"></div>
+      </section>
+
+      <!-- RESEARCH -->
+      <section class="view" id="view-research" aria-labelledby="h-research" hidden>
+        <div class="page-head">
+          <h1 id="h-research">Research Library</h1>
+          <p>Reports and papers, each linked to its source. The date shown is the <strong>publication date</strong>.</p>
+        </div>
+        <div class="toolbar">
+          <label class="field"><span>Search</span><input type="search" id="pub-search" placeholder="Search title, author or summary"></label>
+          <label class="field"><span>Topic</span><select id="pub-topic"></select></label>
+          <label class="field"><span>Verification</span><select id="pub-verification"></select></label>
+          <label class="field"><span>Sort by</span>
+            <select id="pub-sort">
+              <option value="newest">Newest first</option>
+              <option value="oldest">Oldest first</option>
+              <option value="title">Title A-Z</option>
+            </select>
+          </label>
+          <button type="button" class="btn-ghost" data-reset="research">Reset</button>
+        </div>
+        <p class="result-count" id="pub-count" aria-live="polite"></p>
+        <div class="cards" id="pub-list"></div>
+      </section>
+
+      <!-- POLICY -->
+      <section class="view" id="view-policy" aria-labelledby="h-policy" hidden>
+        <div class="page-head">
+          <h1 id="h-policy">Policy Updates</h1>
+          <p>Key AI policy developments. The date shown is the <strong>development date</strong> (when it happened).</p>
+        </div>
+        <div class="toolbar">
+          <label class="field"><span>Search</span><input type="search" id="pol-search" placeholder="Search development or explanation"></label>
+          <label class="field"><span>Region</span><select id="pol-region"></select></label>
+          <div class="field"><span>Layout</span>
+            <div class="seg" role="group" aria-label="Policy layout">
+              <button type="button" id="pol-layout-table" aria-pressed="true">Table</button>
+              <button type="button" id="pol-layout-timeline" aria-pressed="false">Timeline</button>
+            </div>
+          </div>
+          <button type="button" class="btn-ghost" data-reset="policy">Reset</button>
+        </div>
+        <p class="result-count" id="pol-count" aria-live="polite"></p>
+        <div class="table-wrap">
+          <table class="table" id="pol-table">
+            <thead>
+              <tr><th>Date</th><th>Region</th><th>Development</th><th>Verification</th><th>Source</th></tr>
+            </thead>
+            <tbody id="pol-list"></tbody>
+          </table>
+        </div>
+        <ol class="timeline" id="pol-timeline" hidden></ol>
+        <div id="pol-empty"></div>
+      </section>
+
+      <!-- EVENTS -->
+      <section class="view" id="view-events" aria-labelledby="h-events" hidden>
+        <div class="page-head">
+          <h1 id="h-events">Events</h1>
+          <p>Only upcoming events with an exact date confirmed on an official or organiser page.</p>
+        </div>
+        <div class="toolbar">
+          <label class="field"><span>Search</span><input type="search" id="evt-search" placeholder="Search name, organiser or location"></label>
+          <button type="button" class="btn-ghost" data-reset="events">Reset</button>
+        </div>
+        <p class="result-count" id="evt-count" aria-live="polite"></p>
+        <div class="cards" id="evt-list"></div>
+        <div id="evt-empty"></div>
+      </section>
+
+      <!-- SEARCH RESULTS -->
+      <section class="view" id="view-search" aria-labelledby="h-search" hidden>
+        <div class="page-head">
+          <h1 id="h-search">Search results</h1>
+          <p id="search-summary" aria-live="polite"></p>
+        </div>
+        <div id="search-results"></div>
+      </section>
+
+      <!-- BOOKMARKS -->
+      <section class="view" id="view-bookmarks" aria-labelledby="h-bookmarks" hidden>
+        <div class="page-head">
+          <h1 id="h-bookmarks">Bookmarks</h1>
+          <p>Items you saved. They are stored only in this browser (LocalStorage) and are never sent anywhere.</p>
+        </div>
+        <p class="note note-warning" id="storage-warning" hidden>LocalStorage is not available in this browser, so bookmarks will be lost when you close the page.</p>
+        <div class="toolbar" id="bm-tools" hidden>
+          <button type="button" class="btn-ghost" id="bm-download">Download list (.txt)</button>
+          <button type="button" class="btn-ghost" id="bm-copy">Copy list</button>
+          <button type="button" class="btn-ghost" id="bm-print">Print</button>
+          <button type="button" class="btn-ghost" id="bm-clear">Remove all</button>
+          <span class="small" id="bm-status" role="status"></span>
+        </div>
+        <div id="bm-list"></div>
+      </section>
+
+      <!-- ABOUT -->
+      <section class="view" id="view-about" aria-labelledby="h-about" hidden>
+        <div class="page-head">
+          <h1 id="h-about">About &amp; Verification</h1>
+          <p>How the information on this site was checked, and what is still uncertain.</p>
+        </div>
+
+        <div class="panel">
+          <h2>Verification labels</h2>
+          <dl class="legend" id="legend"></dl>
+          <p class="small">Descriptions on this site are written in our own words; they are not copied from the sources. The full list of checks is in <a href="docs/data-verification-log.md">docs/data-verification-log.md</a>. Data was checked on 19 November 2026. Pages can change after that date.</p>
+        </div>
+
+        <div class="panel">
+          <h2>How the information was verified</h2>
+          <ol class="plain steps">
+            <li>Sources were chosen from official or primary pages where possible (government, standards bodies, the organisations themselves).</li>
+            <li>Each linked page was opened and read, and titles, authors and dates were compared with it.</li>
+            <li>Where the exact page could not be opened, the entry was given a weaker label and a visible note instead of being presented as fully verified.</li>
+            <li>Where sources disagreed or an exact date was unknown, the uncertainty is stated (month-only dates, no endorsement counts, no claims about entry into force).</li>
+            <li>Descriptions were written in our own words. Nothing was added that was not checked.</li>
+          </ol>
+        </div>
+
+        <div class="panel">
+          <h2>Three different dates</h2>
+          <ul class="plain">
+            <li><strong>Publication date</strong> - when a research resource was published by its author or publisher.</li>
+            <li><strong>Development date</strong> - when a policy development happened.</li>
+            <li><strong>Date added</strong> - when the entry was added to this website (19 November 2026 for every entry). It drives "Recently added".</li>
+          </ul>
+          <p class="small">A date shown as a month only (for example "July 2026") means the exact day was not verified, so none is shown.</p>
+        </div>
+
+        <div class="panel">
+          <h2>Known uncertainties</h2>
+          <ul class="plain" id="uncertainty-list"></ul>
+        </div>
+
+        <div class="panel">
+          <h2>Considered but not included</h2>
+          <ul class="plain" id="excluded-list"></ul>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <script src="js/data.js"></script>
+  <script src="js/storage.js"></script>
+  <script src="js/render.js"></script>
+  <script src="js/constellation.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
