@@ -22,8 +22,33 @@ A small, static website that collects **verified, source-linked** information ab
 - **Interactive map (constellation)** on the dashboard: every entry is a dot, grouped by type (organisations, research, policy, events) and coloured per type. A ring shows its verification level. Hover or tab to a dot for a preview, click it (or press Enter) to open its full card with source link and bookmark button. Chips hide types or verification levels. Dots are plain SVG built from `js/data.js`; no entries or relationships are invented (lines only show cluster membership).
 - Responsive layout (sidebar becomes a slide-in menu on mobile). Dark mode was added later at the owner's request (see below). There are no bookmark notes, by design.
 
+
 ## Screenshots
-Dashboard: `docs/screenshots/dashboard.png`, Research: `docs/screenshots/research.png`, Policy: `docs/screenshots/policy.png`, Events: `docs/screenshots/events.png`, Mobile: `docs/screenshots/mobile-research.png`. (Taken from the working site during testing.)
+
+### Main Dashboard
+![Dashboard](docs/screenshots/dashboard.png)
+
+### Research Library
+![Research Library](docs/screenshots/research.png)
+
+### Policy Updates
+![Policy Updates](docs/screenshots/policy.png)
+
+### Policy Timeline
+![Policy Timeline](docs/screenshots/policy-timeline.png)
+
+### Events
+![Events](docs/screenshots/events.png)
+
+### Interactive Constellation Map
+![Interactive Map](docs/screenshots/map.png)
+
+### Mobile Dashboard (Dark Mode)
+![Mobile Dashboard](docs/screenshots/mobile-dashboard-dark.png)
+
+### Mobile Research
+![Mobile Research](docs/screenshots/mobile-research.png)
+
 
 ## Make it yours (before you share it)
 Open `js/data.js` and fill in `PROJECT_INFO` (your name, a profile link such as LinkedIn or GitHub, and your repository URL). The dashboard then shows "Built by ...". Leave the values empty to hide the line. Do not change any factual data.
