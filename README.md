@@ -1,54 +1,124 @@
 # AI Governance Resource Hub
 
-A small, static website that collects **verified, source-linked** information about AI governance: organisations, research, policy developments and upcoming events. Built as a portfolio project and for an application to the GovAI UK Summer Fellowship 2027 (Applied Track).
+A small, static website that collects source-linked, verification-labelled information about AI governance: organisations, research, policy developments and upcoming events. Built as a portfolio project and for an application to the GovAI UK Summer Fellowship 2027 (Applied Track).
+
+**Live Website:** https://divyacodehub.github.io/ai-governance-resource-hub/
+
+**GitHub Repository:** https://github.com/divyacodehub/ai-governance-resource-hub
 
 ## Features
-- **Dashboard**: totals (organisations, research resources, policy updates, upcoming events), a *Recently added* list driven by the `dateAdded` field, a verification summary, and the GovAI fellowship opportunity.
-- **Organisations**: cards with description, main area and official link; search and area filter.
-- **Research Library**: title, author/publisher, publication date, topic, summary, source link; search, topic and verification filters, sorting, bookmarking.
-- **Policy Updates**: table of developments with date, region, explanation and source link (stacked layout on phones).
-- **Events**: only upcoming events (compared with the visitor's own clock). If none were left, an honest empty state is shown instead.
-- **Bookmarks**: saved in the browser's LocalStorage; they survive a reload and can be removed.
-- **About & Verification**: legend of verification labels, known uncertainties, and items deliberately left out.
-- **Bookmark tools**: download your bookmarks as a .txt file (with source links and verification labels), copy them, print, or remove all.
-- **Dashboard "About this project"** box and an About-page section explaining how the information was verified.
-- **Print-friendly** styling (sidebar and buttons hidden, source URLs printed).
-- **Policy timeline**: switch Policy Updates between table and a chronological timeline.
-- **"How was this checked?"** expandable box on every card (status, research date, date added, linked source).
-- **Global search** (sidebar): searches organisations, research, policy and events together.
-- **Shareable filtered views**: filters are kept in the URL, e.g. `index.html#research?topic=Compute%20governance`.
-- **Dark mode**: toggle in the sidebar (top bar on mobile). It follows your device setting the first time and remembers your choice in LocalStorage.
-- **Refreshed look**: a dashboard hero with a small animated network graphic, a quick search box, topic chips that open filtered research, serif headings, count-up numbers and gentle hover effects. Animations switch off if your device asks for reduced motion.
-- **Interactive map (constellation)** on the dashboard: every entry is a dot, grouped by type (organisations, research, policy, events) and coloured per type. A ring shows its verification level. Hover or tab to a dot for a preview, click it (or press Enter) to open its full card with source link and bookmark button. Chips hide types or verification levels. Dots are plain SVG built from `js/data.js`; no entries or relationships are invented (lines only show cluster membership).
-- **Governance timeline**: research, policy developments and events on one chronological line, grouped by year, with a "Today" marker. Each row says which kind of date it shows (publication, development or event date). Month-only dates stay month-only. Organisations have no single date, so they are not on it.
-- **Insights**: SVG charts (entries per type by verification level; entries per year by type), all counted from the data. Includes a **live data-integrity check** (8 structural checks run in your browser: https links, no reused links, unique IDs, real calendar dates, known verification levels, notes on every non-verified entry, no future publication/policy dates, `dateAdded` present). These test the data's structure only, not whether external pages are still online.
-- **Open data**: download all 32 entries as JSON or CSV (title, main date, verification level and note, source link, date added).
-- **Copy citation** button on every research item.
-- **Research Analysis** (new nav page): (1) an interactive side-by-side comparison of six AI governance instruments (EU AI Act, California SB 53, Council of Europe convention, NIST AI RMF, Bletchley Declaration, UN A/RES/79/325) across legal status, coverage, mechanism, reporting and enforcement; (2) six evidence-backed gaps and differences; (3) nine key research findings with short quotations; (4) five practical recommendations for policymakers; (5) methodology, limitations and an 18-item reference list. Every statement is labelled **Sourced fact** (with a reference like [R2]) or **Our analysis** (with the facts it rests on, a confidence level and what was not checked). Where a source was silent the table says so. See `docs/analysis-verification-log.md`.
-- Responsive layout (sidebar becomes a slide-in menu on mobile). Dark mode was added later at the owner's request (see below). There are no bookmark notes, by design.
+
+- **Dashboard:** Overview of organisations, research resources, policy updates and upcoming events, with recently added entries, a verification summary and the GovAI fellowship opportunity.
+
+- **Organisations:** Cards with descriptions, main areas of work and official links, with search and area filters.
+
+- **Research Library:** Research publications with title, author/publisher, publication date, topic, summary and source link. Includes search, topic and verification filters, sorting and bookmarking.
+
+- **Policy Updates:** Policy developments with dates, regions, explanations and source links, with table and chronological timeline views.
+
+- **Events:** Displays upcoming events based on the visitor's local date. An honest empty state appears when no upcoming events remain.
+
+- **Bookmarks:** Save entries in browser LocalStorage. Bookmarks survive page reloads and can be removed.
+
+- **About & Verification:** Explains verification labels, known uncertainties and items deliberately left out.
+
+- **Bookmark tools:** Download bookmarks as a TXT file with source links and verification labels, copy them, print them or remove all.
+
+- **Global search:** Search organisations, research, policy and events together from the sidebar.
+
+- **Shareable filtered views:** Filters are preserved in the URL, allowing filtered sections to be shared.
+
+- **Dark mode:** Toggle between light and dark themes. The initial theme follows the device setting, and the user's choice is saved in LocalStorage.
+
+- **Dashboard visual design:** Includes a dashboard hero, animated network graphic, quick search, topic shortcuts, count-up numbers and hover effects. Animations respect reduced-motion preferences.
+
+- **Interactive Constellation Map:** Displays all 32 directory entries as SVG dots grouped by type: organisations, research, policy and events. Verification levels are represented visually. Supports previews, filtering and opening individual entries with source links and bookmark options.
+
+- **Governance Timeline:** Displays dated research, policy developments and events on a chronological timeline grouped by year, with a Today marker. Each row identifies the type of date being shown. Month-only dates remain month-only.
+
+- **Insights Dashboard:** Includes SVG charts showing entries by type and verification level, and entries by year and type.
+
+- **Data Integrity Checker:** Eight structural checks run in the browser, covering HTTPS links, duplicate URLs, unique IDs, valid calendar dates, verification labels, verification notes, future publication/policy dates and the presence of `dateAdded`. These checks validate data structure, not external website availability.
+
+- **Open Data Export:** Download all 32 directory entries as JSON or CSV, including titles, dates, verification information and source links.
+
+- **Copy Citation:** Copy citation information from research items.
+
+- **Research Analysis:** A dedicated page containing:
+  1. An interactive side-by-side comparison of six AI governance instruments: EU AI Act, California SB 53, Council of Europe Framework Convention on AI, NIST AI Risk Management Framework, Bletchley Declaration and UN General Assembly A/RES/79/325.
+  2. Six evidence-backed policy gaps and differences.
+  3. Nine research findings with short quotations and references.
+  4. Five practical policy recommendations.
+  5. Methodology, limitations and an 18-item reference list.
+
+  Statements distinguish between **Sourced fact** and **Our analysis**, with supporting references, confidence levels and limitations. Source silence is not treated as proof that a provision does not exist.
+
+- **"How was this checked?" boxes:** Expandable verification information on directory cards, including status, research date, date added and linked source.
+
+- **Print-friendly styling:** Sidebar and buttons are hidden when printing, while source URLs remain available.
+
+- **Responsive layout:** The sidebar becomes a slide-in menu on mobile devices.
 
 ## Screenshots
-Dashboard: `docs/screenshots/dashboard.png`, Research: `docs/screenshots/research.png`, Policy: `docs/screenshots/policy.png`, Events: `docs/screenshots/events.png`, Mobile: `docs/screenshots/mobile-research.png`. (Taken from the working site during testing.)
+
+### Dashboard
+![Dashboard](docs/screenshots/dashboard.png)
+
+### Organisations
+![Organisations](docs/screenshots/organisations.png)
+
+### Research Library
+![Research Library](docs/screenshots/research_lib.png)
+
+### Policy Updates
+![Policy Updates](docs/screenshots/pol_updates.png)
+
+### Events
+![Events](docs/screenshots/events.png)
+
+### Governance Timeline
+![Governance Timeline](docs/screenshots/timeline.png)
+
+### Insights
+![Insights](docs/screenshots/insights.png)
+
+### Research Analysis
+![Research Analysis](docs/screenshots/research_analysis.png)
+
+![Research Analysis Details](docs/screenshots/research_analysis_2.png)
 
 ## Make it yours (before you share it)
+
 Open `js/data.js` and fill in `PROJECT_INFO` (your name, a profile link such as LinkedIn or GitHub, and your repository URL). The dashboard then shows "Built by ...". Leave the values empty to hide the line. Do not change any factual data.
 
 ## Publish it for free (GitHub Pages)
+
 1. Create a free GitHub account and a new public repository.
-2. Upload the contents of this folder (so `index.html` is at the top level).
+2. Upload the contents of this folder so that `index.html` is at the top level.
 3. In the repository go to Settings, then Pages, choose the `main` branch and the root folder, and save.
 4. After a minute GitHub shows your live link. Put that link and the repository URL in your application.
 
 ## Technologies
-HTML, CSS and vanilla JavaScript only, plus LocalStorage. No frameworks, build step, backend, database or paid API.
+
+HTML, CSS and vanilla JavaScript only, plus browser LocalStorage and SVG. No frontend frameworks, build step, backend, database or paid API.
 
 ## How to run
-1. Unzip the folder.
-2. Double-click `index.html` (it opens in your browser). That is all.
-3. Optional: `python3 -m http.server` in the folder, then visit http://localhost:8000. This also makes the link to `docs/data-verification-log.md` open as a file.
+
+1. Clone or download the repository.
+2. Open the project folder.
+3. Double-click `index.html` to open it in your browser.
+
+Alternatively, run:
+
+```bash
+python3 -m http.server
+```
+
+Then visit `http://localhost:8000`. This also makes links to local documentation files work correctly.
 
 ## Data sources and verification approach
-All content comes from `js/data.js`, which was written from the approved research in `docs/data-verification-log.md`. Every entry keeps its own `sourceUrl`, and sources are official or primary where possible. Descriptions are written in our own words.
+
+All content comes from `js/data.js`, with research and verification records documented in `docs/data-verification-log.md`. Every entry keeps its own `sourceUrl`, and sources are official or primary wherever possible. Descriptions are written in our own words.
 
 Each entry carries one of four labels, shown on its card:
 
@@ -56,49 +126,90 @@ Each entry carries one of four labels, shown on its card:
 |---|---|
 | Verified | The exact linked page was opened and read during research (19 November 2026). |
 | Indirectly verified | A different page on the same official site confirms it (Ada Lovelace Institute, CSER). |
-| Partly verified | Key facts supported, but the official page could not be opened (International AI Safety Report 2026, linked via arXiv). |
+| Partly verified | Key facts are supported, but the official page could not be opened (International AI Safety Report 2026, linked via arXiv). |
 | Organiser site only | Checked only on the organiser's own website (Danish AI Safety Conference). |
 
-Uncertainties are shown on the site (card notes and the About page), for example: month-only dates are displayed as a month; the New Delhi Declaration has no exact day or endorsement count; the EU Digital Omnibus entry states no new high-risk deadlines; the Council of Europe treaty's entry into force is not claimed.
+Uncertainties are shown on the website through card notes and the About page. Examples include month-only dates, the New Delhi Declaration's unspecified exact day or endorsement count, and policy details that could not be fully confirmed.
 
-**What was not done:** links were checked during research, not re-checked by the automated test suite (it had no web access). Web pages can change after 19 November 2026. Nothing is "unverified" in the data set: entries that could not be fully verified carry a weaker label instead.
+**What was not done:** Links were checked during research, not rechecked by the automated test suite, which had no web access. Web pages can change after 19 November 2026. Entries that could not be fully verified carry weaker labels rather than being presented as fully verified.
 
 ### Three kinds of date
-- `publicationDate`: when a resource was published.
+
+- `publicationDate`: when a research resource was published.
 - `developmentDate`: when a policy development happened.
-- `dateAdded`: when it was added to this site (2026-11-19 for all entries).
+- `dateAdded`: when an entry was added to this site (2026-11-19 for all original entries).
 
 A value like `"2026-07"` means month only and is shown as "July 2026".
 
 ## Project structure (beginner-friendly)
-```
-index.html          the single page: sidebar + one <section> per view
-css/styles.css      colours (CSS variables at the top), layout, cards, table, mobile rules
-js/data.js          ALL content as JavaScript arrays (organisations, publications, ...)
-js/storage.js       LocalStorage helpers: load/save/toggle bookmarks (with try/catch)
-js/render.js        functions that turn one data item into HTML text
-js/analysis-data.js the Research Analysis content (references, comparison, gaps, findings, recommendations)
-js/analysis.js      draws the Research Analysis page and runs its citation checks
-js/insights.js      timeline, charts, integrity checks, export, citations
-js/constellation.js the interactive dashboard map (SVG dots built from data.js)
-js/app.js           navigation, URL filters, global search, search/filters, bookmark clicks, dashboard numbers
-docs/data-verification-log.md   what was checked for the directory entries, and how
-docs/analysis-verification-log.md   what was checked for the Research Analysis, and its limits
-```
-Load order matters: `data.js` -> `storage.js` -> `render.js` -> `constellation.js` -> `insights.js` -> `analysis-data.js` -> `analysis.js` -> `app.js`, because each file uses things defined by the previous ones.
 
-**How it works:** the URL hash (`#research`) picks which section is visible. When you type in a search box or change a filter, `app.js` filters the arrays from `data.js`, asks `render.js` for the HTML of each result, and puts it in the page. Clicking *Bookmark* calls `toggleBookmark()` in `storage.js`, which saves a small list in LocalStorage, then the lists redraw.
+```text
+ai-governance-resource-hub/
+│
+├── index.html
+│
+├── css/
+│   └── styles.css
+│
+├── js/
+│   ├── data.js
+│   ├── storage.js
+│   ├── render.js
+│   ├── analysis-data.js
+│   ├── analysis.js
+│   ├── insights.js
+│   ├── constellation.js
+│   └── app.js
+│
+├── docs/
+│   ├── screenshots/
+│   ├── data-verification-log.md
+│   └── analysis-verification-log.md
+│
+└── README.md
+```
 
-**To add an entry:** copy an existing object in `js/data.js`, change its fields, keep a real `sourceUrl`, set an honest `verification.level`, and set `dateAdded`.
+Load order matters: `data.js` → `storage.js` → `render.js` → `constellation.js` → `insights.js` → `analysis-data.js` → `analysis.js` → `app.js`, because each file uses things defined by the previous ones.
+
+**How it works:** The URL hash (`#research`) picks which section is visible. When a visitor searches or changes a filter, `app.js` filters the arrays from `data.js`, asks `render.js` for the HTML of each result and puts it on the page. Clicking Bookmark calls `toggleBookmark()` in `storage.js`, which saves a small list in LocalStorage, then the lists redraw.
+
+**To add an entry:** Copy an existing object in `js/data.js`, change its fields, keep a real `sourceUrl`, set an honest `verification.level` and set `dateAdded`.
 
 ## Research Analysis: how it was made, and its limits
-- Sources were opened on 22 November 2026 and read through a fetch tool that extracts page text. Quotations are as returned by the tool and were not re-checked character by character against the live pages.
-- Full legal texts (EU AI Act, Regulation (EU) 2026/1744, the Council of Europe convention, the final SB 53 text) were **not** read, so the analysis makes no claims about EU fine amounts or the treaty's oversight mechanism. Several sources were read as abstracts only.
-- SB 53 is described from a committee analysis of a pre-enactment amended version plus a bill-page digest, and one secondary commentary. The final law may differ in detail.
-- The EU high-risk dates (Annex III "extended to 2 December 2027", Annex I "until 2 August 2028") come from a Commission web page and were not checked against the Regulation's text.
-- The UK findings come from a 2023 briefing; current UK law was not checked, so that gap is rated Low confidence.
+
+- Sources were opened on 22 November 2026 and read through a fetch tool that extracts page text. Quotations are as returned by the tool and were not rechecked character by character against the live pages.
+- Full legal texts (EU AI Act, Regulation (EU) 2026/1744, the Council of Europe Convention and the final SB 53 text) were not all read in full. Therefore, the analysis makes no claims about EU fine amounts or the treaty's oversight mechanism. Several sources were read as abstracts only.
+- SB 53 is described using a committee analysis of a pre-enactment amended version, a bill-page digest and secondary commentary. The final law may differ in detail.
+- EU high-risk dates (Annex III "extended to 2 December 2027", Annex I "until 2 August 2028") come from a Commission webpage and were not checked against the full regulation text.
+- UK findings come from a 2023 briefing. Current UK law was not checked, so that gap is rated Low confidence.
 - The comparison is selective and describes what instruments say, not whether they work.
-- **This section was drafted with AI assistance. The author should read every claim and source before presenting it as their own analysis.**
+- **AI assistance disclosure:** This section was drafted with AI assistance. Claims and sources should be reviewed before presenting the analysis as independent original research.
+
+Further details are available in `docs/analysis-verification-log.md`.
 
 ## Testing performed
-Automated browser tests (Python Playwright, Chromium, run on 21 November 2026; the test scripts are not included in this folder) covered: navigation to all views; dashboard counts; search, filters, reset and empty states on each list; sorting; bookmark add, remove, mixed types and persistence after reload; month-only date display; Omnibus signing vs Official Journal dates; source-link attributes; consistency of every URL in `data.js` with the approved log; no console errors; a 375px mobile layout (menu, no horizontal scroll); and, for the Research Analysis: navigation, comparison chips (min 2, max 3 columns), 6 gaps / 9 findings / 5 recommendations / 18 references rendered, labels on every item, citation clicks and section jumps, 8 of 8 citation checks (and detection of a deliberately broken reference), hub links resolving, contrast in both themes, mobile layout; and, for the earlier additions: the timeline (22 rows, year order, Today marker, type toggles), chart totals (32 entries; 22 dated entries), integrity checks (all 8 pass, and two deliberately broken test values were detected), JSON/CSV downloads (32 entries, IASR row checked), citation copy,  the map (32 dots, 4 clusters, hover preview, click-to-open card, bookmarking from the card, type and verification chips, keyboard selection, tap on a touch device),  dark mode toggle, persistence and OS-preference default, text-contrast sampling in both themes (computed WCAG ratios of 23 sampled text elements in dark mode and 14 in light mode, all at least 4.5:1 except the hero text, whose gradient background the script could not measure), topic chips and hero search,  timeline toggle, "How was this checked?" boxes, global search (including HTML-looking input), URL-based filters (including invalid values),  bookmark download/copy/remove-all, the print stylesheet hiding the sidebar, and the optional author line.
+
+The project records automated browser tests using Python Playwright and Chromium, run on 21 November 2026. The test scripts are not included in this folder.
+
+The reported tests covered:
+
+- Navigation to all views and dashboard counts.
+- Search, filters, reset, empty states and sorting.
+- Bookmark creation, removal, mixed types and persistence after reload.
+- Month-only date display and policy date handling.
+- Source-link attributes and consistency of every URL in `data.js` with the approved verification log.
+- Console errors and a 375px mobile layout, including menu behaviour and horizontal scrolling.
+- Research Analysis navigation, comparison controls, six gaps, nine findings, five recommendations and 18 references.
+- Labels, citation clicks, section navigation, eight citation checks and detection of a deliberately broken reference.
+- Contrast checks in light and dark themes and mobile layout.
+- Timeline rendering, 22 rows, year ordering, Today marker and type toggles.
+- Chart totals covering 32 entries and 22 dated entries.
+- Eight integrity checks, including detection of deliberately broken test values.
+- JSON and CSV downloads, with 32 entries.
+- Citation copying.
+- Interactive map behaviour, including 32 dots, four clusters, previews, click-to-open cards, bookmarks, filters and keyboard selection.
+- Dark mode toggle, persistence and operating-system preference.
+- Topic shortcuts, hero search, global search and URL-based filters.
+- "How was this checked?" boxes, bookmark download/copy/remove-all tools and print stylesheet behaviour.
+
+These are the tests reported in the project's existing documentation; the test scripts are not included in the repository.
