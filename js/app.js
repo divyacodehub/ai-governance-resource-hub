@@ -8,7 +8,7 @@
     4. Dashboard numbers and "Recently added"
 */
 
-const VIEW_NAMES = ["dashboard", "organisations", "research", "policy", "events", "bookmarks", "about", "search"];
+const VIEW_NAMES = ["dashboard", "organisations", "research", "policy", "events", "bookmarks", "about", "search", "timeline", "insights", "analysis"];
 
 // Which URL parameter controls which form field. This makes filtered views shareable:
 // e.g. index.html#research?topic=Compute%20governance
@@ -76,6 +76,9 @@ function showView(name, params) {
   closeMenu();
   if (name === "bookmarks") renderBookmarks();
   if (name === "dashboard") renderDashboard();
+  if (name === "timeline") renderTimeline();
+  if (name === "insights") renderInsights();
+  if (name === "analysis") renderAnalysis();
   if (name === "search") {
     searchQuery = (params && params.get("q")) || "";
     $("global-search").value = searchQuery;
@@ -588,6 +591,8 @@ document.addEventListener("DOMContentLoaded", () => {
   setupFilters();
   setupEvents();
   setupBookmarkTools();
+  setupInsights();
+  setupAnalysis();
   renderProjectAuthor();
   renderAbout();
   refreshAll();

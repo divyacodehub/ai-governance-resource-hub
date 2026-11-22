@@ -111,7 +111,8 @@ function renderPublicationCard(pub) {
     "<p>" + esc(pub.summary) + "</p>" +
     verificationNote(pub.verification) + checkDetails(pub) +
     '<div class="card-actions">' + sourceLink(pub.sourceUrl, "Source") +
-    bookmarkButton("publication", pub.id) + "</div>" +
+    '<span class="btn-group"><button type="button" class="btn-ghost btn-small" data-cite="' + esc(pub.id) + '">Copy citation</button>' +
+    bookmarkButton("publication", pub.id) + "</span></div>" +
     "</article>"
   );
 }

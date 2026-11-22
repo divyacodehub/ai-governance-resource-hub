@@ -48,6 +48,9 @@
         <a href="#research" class="nav-link" data-view="research">Research Library</a>
         <a href="#policy" class="nav-link" data-view="policy">Policy Updates</a>
         <a href="#events" class="nav-link" data-view="events">Events</a>
+        <a href="#timeline" class="nav-link" data-view="timeline">Timeline</a>
+        <a href="#insights" class="nav-link" data-view="insights">Insights</a>
+        <a href="#analysis" class="nav-link" data-view="analysis">Research Analysis</a>
         <a href="#bookmarks" class="nav-link" data-view="bookmarks">Bookmarks <span class="count-pill" id="bookmark-count">0</span></a>
         <a href="#about" class="nav-link" data-view="about">About &amp; Verification</a>
       </nav>
@@ -207,6 +210,97 @@
         <div id="evt-empty"></div>
       </section>
 
+      <!-- TIMELINE -->
+      <section class="view" id="view-timeline" aria-labelledby="h-timeline" hidden>
+        <div class="page-head">
+          <h1 id="h-timeline">Governance timeline</h1>
+          <p>Research, policy developments and events on one line. Each row says which kind of date it shows: publication, development or event date.</p>
+        </div>
+        <div class="toolbar"><div class="chips-row"><span class="small">Show</span><span class="chips-inline" id="mt-chips"></span></div></div>
+        <p class="result-count" id="mt-count" aria-live="polite"></p>
+        <ol class="master-timeline" id="mt-list"></ol>
+      </section>
+
+      <!-- INSIGHTS -->
+      <section class="view" id="view-insights" aria-labelledby="h-insights" hidden>
+        <div class="page-head">
+          <h1 id="h-insights">Insights</h1>
+          <p>Counts calculated from the entries on this site. Nothing is estimated.</p>
+        </div>
+        <div class="grid-2 equal">
+          <div class="panel"><h2>How well is the data verified?</h2><p class="small">Entries per type, split by verification level.</p><div id="chart-evidence"></div></div>
+          <div class="panel"><h2>Entries by year</h2><p class="small">Each entry counted once, by its main date.</p><div id="chart-years"></div></div>
+        </div>
+        <div class="panel">
+          <h2>Live data-integrity check</h2>
+          <p class="small">These checks run in your browser on the data in this site, every time the page opens. They test the data's structure (links, dates, labels, notes). They do <strong>not</strong> test whether external pages are still online or still say the same thing.</p>
+          <p><strong id="integrity-summary"></strong></p>
+          <ul class="checklist" id="integrity-list"></ul>
+        </div>
+        <div class="panel">
+          <h2>Open data</h2>
+          <p class="small">Download every entry with its main date, verification level, note, source link and date added.</p>
+          <div class="toolbar flat">
+            <button type="button" class="btn-ghost" id="export-json">Download JSON</button>
+            <button type="button" class="btn-ghost" id="export-csv">Download CSV</button>
+            <span class="small" id="export-status" role="status"></span>
+          </div>
+        </div>
+      </section>
+
+      <!-- RESEARCH ANALYSIS -->
+      <section class="view" id="view-analysis" aria-labelledby="h-analysis" hidden>
+        <div class="page-head">
+          <h1 id="h-analysis">Research Analysis</h1>
+          <p>A source-based comparison of selected AI governance instruments: what they say, where they differ, what the research finds, and what we would recommend. Statements are labelled so you can tell sources from our own reasoning.</p>
+        </div>
+
+        <div class="panel an-legend">
+          <p><span class="lbl lbl-fact">Sourced fact</span> A page we opened says this. It carries a reference such as <a class="cite" href="#ref-R2" data-ref="R2">[R2]</a>.</p>
+          <p><span class="lbl lbl-analysis">Our analysis</span> Our own reading. It says which facts it rests on, how confident we are and what we did not check.</p>
+          <p class="small">Where a source was silent the table says <em>Not stated in the pages we read</em>. That does not mean the provision does not exist. This section was drafted with AI assistance and needs the author's review. Sources were read on 22 November 2026.</p>
+          <div class="an-jump" role="group" aria-label="Jump to a section">
+            <button type="button" class="btn-ghost btn-small" data-scroll="an-s1">1 Comparison</button>
+            <button type="button" class="btn-ghost btn-small" data-scroll="an-s2">2 Gaps and differences</button>
+            <button type="button" class="btn-ghost btn-small" data-scroll="an-s3">3 Key findings</button>
+            <button type="button" class="btn-ghost btn-small" data-scroll="an-s4">4 Recommendations</button>
+            <button type="button" class="btn-ghost btn-small" data-scroll="an-s5">5 Method, limits, references</button>
+          </div>
+        </div>
+
+        <h2 class="an-h" id="an-s1">1. Comparing selected frameworks and policies</h2>
+        <div class="toolbar"><div class="chips-row"><span class="small">Compare</span><span class="chips-inline" id="cmp-chips"></span></div></div>
+        <p class="result-count" id="cmp-count" aria-live="polite"></p>
+        <div class="cmp-wrap" id="cmp-table" tabindex="0" role="region" aria-label="Comparison table (scrolls sideways on small screens)"></div>
+
+        <h2 class="an-h" id="an-s2">2. Policy gaps and differences, with evidence</h2>
+        <div class="an-grid" id="an-gaps"></div>
+
+        <h2 class="an-h" id="an-s3">3. Key research findings</h2>
+        <p class="small">Each finding is a sourced fact with a short quotation, its scope and a caveat. Nothing on this list is our own conclusion.</p>
+        <div class="an-grid" id="an-findings"></div>
+
+        <h2 class="an-h" id="an-s4">4. Practical recommendations for policymakers</h2>
+        <p class="small">These are our analysis, not facts from the sources. Each says what it rests on and what would change our mind.</p>
+        <div class="an-grid" id="an-recs"></div>
+
+        <h2 class="an-h" id="an-s5">5. Methodology, limitations and references</h2>
+        <div class="grid-2 equal">
+          <div class="panel"><h3>Methodology</h3><div id="an-method"></div></div>
+          <div class="panel"><h3>Limitations</h3><div id="an-limits"></div></div>
+        </div>
+        <div class="panel">
+          <h3>Live citation check</h3>
+          <p class="small">Runs in your browser on this page's data. It tests that citations are complete and consistent. It does not test whether a source says what we claim.</p>
+          <p><strong id="cite-summary"></strong></p>
+          <ul class="checklist" id="cite-list"></ul>
+        </div>
+        <div class="panel">
+          <h3>References</h3>
+          <ol class="refs" id="an-refs"></ol>
+        </div>
+      </section>
+
       <!-- SEARCH RESULTS -->
       <section class="view" id="view-search" aria-labelledby="h-search" hidden>
         <div class="page-head">
@@ -285,6 +379,9 @@
   <script src="js/storage.js"></script>
   <script src="js/render.js"></script>
   <script src="js/constellation.js"></script>
+  <script src="js/insights.js"></script>
+  <script src="js/analysis-data.js"></script>
+  <script src="js/analysis.js"></script>
   <script src="js/app.js"></script>
 </body>
 </html>

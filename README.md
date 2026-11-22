@@ -2,8 +2,6 @@
 
 A small, static website that collects **verified, source-linked** information about AI governance: organisations, research, policy developments and upcoming events. Built as a portfolio project and for an application to the GovAI UK Summer Fellowship 2027 (Applied Track).
 
-🌐 **Live Demo:** https://divyacodehub.github.io/ai-governance-resource-hub/
-
 ## Features
 - **Dashboard**: totals (organisations, research resources, policy updates, upcoming events), a *Recently added* list driven by the `dateAdded` field, a verification summary, and the GovAI fellowship opportunity.
 - **Organisations**: cards with description, main area and official link; search and area filter.
@@ -22,35 +20,15 @@ A small, static website that collects **verified, source-linked** information ab
 - **Dark mode**: toggle in the sidebar (top bar on mobile). It follows your device setting the first time and remembers your choice in LocalStorage.
 - **Refreshed look**: a dashboard hero with a small animated network graphic, a quick search box, topic chips that open filtered research, serif headings, count-up numbers and gentle hover effects. Animations switch off if your device asks for reduced motion.
 - **Interactive map (constellation)** on the dashboard: every entry is a dot, grouped by type (organisations, research, policy, events) and coloured per type. A ring shows its verification level. Hover or tab to a dot for a preview, click it (or press Enter) to open its full card with source link and bookmark button. Chips hide types or verification levels. Dots are plain SVG built from `js/data.js`; no entries or relationships are invented (lines only show cluster membership).
+- **Governance timeline**: research, policy developments and events on one chronological line, grouped by year, with a "Today" marker. Each row says which kind of date it shows (publication, development or event date). Month-only dates stay month-only. Organisations have no single date, so they are not on it.
+- **Insights**: SVG charts (entries per type by verification level; entries per year by type), all counted from the data. Includes a **live data-integrity check** (8 structural checks run in your browser: https links, no reused links, unique IDs, real calendar dates, known verification levels, notes on every non-verified entry, no future publication/policy dates, `dateAdded` present). These test the data's structure only, not whether external pages are still online.
+- **Open data**: download all 32 entries as JSON or CSV (title, main date, verification level and note, source link, date added).
+- **Copy citation** button on every research item.
+- **Research Analysis** (new nav page): (1) an interactive side-by-side comparison of six AI governance instruments (EU AI Act, California SB 53, Council of Europe convention, NIST AI RMF, Bletchley Declaration, UN A/RES/79/325) across legal status, coverage, mechanism, reporting and enforcement; (2) six evidence-backed gaps and differences; (3) nine key research findings with short quotations; (4) five practical recommendations for policymakers; (5) methodology, limitations and an 18-item reference list. Every statement is labelled **Sourced fact** (with a reference like [R2]) or **Our analysis** (with the facts it rests on, a confidence level and what was not checked). Where a source was silent the table says so. See `docs/analysis-verification-log.md`.
 - Responsive layout (sidebar becomes a slide-in menu on mobile). Dark mode was added later at the owner's request (see below). There are no bookmark notes, by design.
 
-
 ## Screenshots
-
-### Main Dashboard
-![Dashboard](docs/screenshots/dashboard.png)
-
-### Research Library
-![Research Library](docs/screenshots/research.png)
-
-### Policy Updates
-![Policy Updates](docs/screenshots/policy.png)
-
-### Policy Timeline
-![Policy Timeline](docs/screenshots/policy-timeline.png)
-
-### Events
-![Events](docs/screenshots/events.png)
-
-### Interactive Constellation Map
-![Interactive Map](docs/screenshots/map.png)
-
-### Mobile Dashboard (Dark Mode)
-![Mobile Dashboard](docs/screenshots/mobile-dashboard-dark.png)
-
-### Mobile Research
-![Mobile Research](docs/screenshots/mobile-research.png)
-
+Dashboard: `docs/screenshots/dashboard.png`, Research: `docs/screenshots/research.png`, Policy: `docs/screenshots/policy.png`, Events: `docs/screenshots/events.png`, Mobile: `docs/screenshots/mobile-research.png`. (Taken from the working site during testing.)
 
 ## Make it yours (before you share it)
 Open `js/data.js` and fill in `PROJECT_INFO` (your name, a profile link such as LinkedIn or GitHub, and your repository URL). The dashboard then shows "Built by ...". Leave the values empty to hide the line. Do not change any factual data.
@@ -99,15 +77,28 @@ css/styles.css      colours (CSS variables at the top), layout, cards, table, mo
 js/data.js          ALL content as JavaScript arrays (organisations, publications, ...)
 js/storage.js       LocalStorage helpers: load/save/toggle bookmarks (with try/catch)
 js/render.js        functions that turn one data item into HTML text
+js/analysis-data.js the Research Analysis content (references, comparison, gaps, findings, recommendations)
+js/analysis.js      draws the Research Analysis page and runs its citation checks
+js/insights.js      timeline, charts, integrity checks, export, citations
 js/constellation.js the interactive dashboard map (SVG dots built from data.js)
 js/app.js           navigation, URL filters, global search, search/filters, bookmark clicks, dashboard numbers
-docs/data-verification-log.md   what was checked, and how
+docs/data-verification-log.md   what was checked for the directory entries, and how
+docs/analysis-verification-log.md   what was checked for the Research Analysis, and its limits
 ```
-Load order matters: `data.js` -> `storage.js` -> `render.js` -> `constellation.js` -> `app.js`, because each file uses things defined by the previous ones.
+Load order matters: `data.js` -> `storage.js` -> `render.js` -> `constellation.js` -> `insights.js` -> `analysis-data.js` -> `analysis.js` -> `app.js`, because each file uses things defined by the previous ones.
 
 **How it works:** the URL hash (`#research`) picks which section is visible. When you type in a search box or change a filter, `app.js` filters the arrays from `data.js`, asks `render.js` for the HTML of each result, and puts it in the page. Clicking *Bookmark* calls `toggleBookmark()` in `storage.js`, which saves a small list in LocalStorage, then the lists redraw.
 
 **To add an entry:** copy an existing object in `js/data.js`, change its fields, keep a real `sourceUrl`, set an honest `verification.level`, and set `dateAdded`.
 
+## Research Analysis: how it was made, and its limits
+- Sources were opened on 22 November 2026 and read through a fetch tool that extracts page text. Quotations are as returned by the tool and were not re-checked character by character against the live pages.
+- Full legal texts (EU AI Act, Regulation (EU) 2026/1744, the Council of Europe convention, the final SB 53 text) were **not** read, so the analysis makes no claims about EU fine amounts or the treaty's oversight mechanism. Several sources were read as abstracts only.
+- SB 53 is described from a committee analysis of a pre-enactment amended version plus a bill-page digest, and one secondary commentary. The final law may differ in detail.
+- The EU high-risk dates (Annex III "extended to 2 December 2027", Annex I "until 2 August 2028") come from a Commission web page and were not checked against the Regulation's text.
+- The UK findings come from a 2023 briefing; current UK law was not checked, so that gap is rated Low confidence.
+- The comparison is selective and describes what instruments say, not whether they work.
+- **This section was drafted with AI assistance. The author should read every claim and source before presenting it as their own analysis.**
+
 ## Testing performed
-Automated browser tests (Python Playwright, Chromium, run on 21 November 2026; the test scripts are not included in this folder) covered: navigation to all views; dashboard counts; search, filters, reset and empty states on each list; sorting; bookmark add, remove, mixed types and persistence after reload; month-only date display; Omnibus signing vs Official Journal dates; source-link attributes; consistency of every URL in `data.js` with the approved log; no console errors; a 375px mobile layout (menu, no horizontal scroll); and, for the later additions: the map (32 dots, 4 clusters, hover preview, click-to-open card, bookmarking from the card, type and verification chips, keyboard selection, tap on a touch device),  dark mode toggle, persistence and OS-preference default, text-contrast sampling in both themes (computed WCAG ratios of 23 sampled text elements in dark mode and 14 in light mode, all at least 4.5:1 except the hero text, whose gradient background the script could not measure), topic chips and hero search,  timeline toggle, "How was this checked?" boxes, global search (including HTML-looking input), URL-based filters (including invalid values),  bookmark download/copy/remove-all, the print stylesheet hiding the sidebar, and the optional author line.
+Automated browser tests (Python Playwright, Chromium, run on 21 November 2026; the test scripts are not included in this folder) covered: navigation to all views; dashboard counts; search, filters, reset and empty states on each list; sorting; bookmark add, remove, mixed types and persistence after reload; month-only date display; Omnibus signing vs Official Journal dates; source-link attributes; consistency of every URL in `data.js` with the approved log; no console errors; a 375px mobile layout (menu, no horizontal scroll); and, for the Research Analysis: navigation, comparison chips (min 2, max 3 columns), 6 gaps / 9 findings / 5 recommendations / 18 references rendered, labels on every item, citation clicks and section jumps, 8 of 8 citation checks (and detection of a deliberately broken reference), hub links resolving, contrast in both themes, mobile layout; and, for the earlier additions: the timeline (22 rows, year order, Today marker, type toggles), chart totals (32 entries; 22 dated entries), integrity checks (all 8 pass, and two deliberately broken test values were detected), JSON/CSV downloads (32 entries, IASR row checked), citation copy,  the map (32 dots, 4 clusters, hover preview, click-to-open card, bookmarking from the card, type and verification chips, keyboard selection, tap on a touch device),  dark mode toggle, persistence and OS-preference default, text-contrast sampling in both themes (computed WCAG ratios of 23 sampled text elements in dark mode and 14 in light mode, all at least 4.5:1 except the hero text, whose gradient background the script could not measure), topic chips and hero search,  timeline toggle, "How was this checked?" boxes, global search (including HTML-looking input), URL-based filters (including invalid values),  bookmark download/copy/remove-all, the print stylesheet hiding the sidebar, and the optional author line.
